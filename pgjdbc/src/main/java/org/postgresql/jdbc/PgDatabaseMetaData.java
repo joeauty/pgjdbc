@@ -1452,6 +1452,8 @@ public class PgDatabaseMetaData implements DatabaseMetaData {
     if (connection.getHideUnprivilegedObjects()) {
       sql += " AND has_schema_privilege(nspname, 'USAGE, CREATE')";
     }
+    // Nulogy patch
+    sql += " AND nspname NOT ILIKE 'account_%'"
     sql += " ORDER BY TABLE_SCHEM";
 
     return createMetaDataStatement().executeQuery(sql);
